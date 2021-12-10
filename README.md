@@ -88,7 +88,7 @@ a list of procedures that calculate the fasting status for each day in a list
 
 
 
-** calculateEaster.py **
+**calculateEaster.py**
 
 Calculate Easter according to the Bulgarian Christian Orthodox Church Typikon (1980 edition, p. 510-512)
 for use in i.e. time shifting holidays and fasting
@@ -100,7 +100,7 @@ the date of easter is found by dividing the year by 28 and by 19 and using looku
 
 the result should be b/w APR 4 and May 11
 
-Correction for Century
+*Correction for Century*
 
 The look-up-tables in the Tipikon themselves are only valid for years 1900-2099.
 The correction factor for Gregorian vs Julian calendars should be applied as follows
