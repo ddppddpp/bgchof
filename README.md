@@ -44,13 +44,13 @@ For a description of the various fasting periods please see [FASTINGRULES](docs/
 
 Throughout this module the following coding is used to represent food value:
 
-0 - no food allowed
-1 - cold plant based food
-2 - cooked plant based food
-3 - oil/wine
-4 - fish
-5 - dairy, eggs
-6 - meat
+0. no food allowed
+1. cold plant based food
+2. cooked plant based food
+3. oil/wine
+4. fish
+5. dairy, eggs
+6. meat
 
 Invertebrate based food i.e. seafood or snails is generally considered equal to plant based and allowed on most days.
 
@@ -112,11 +112,22 @@ the result should be b/w APR 4 and May 11
 
 The look-up-tables in the Tipikon themselves are only valid for years 1900-2099.
 The correction factor for Gregorian vs Julian calendars should be applied as follows
-5.10.1582 - 28.02.1700 - 10 days (-3 delta from the Tipikon)
-29.02.1700 - 28.02.1800 - 11 days (-2 delta)
-29.02.1800 - 28.02.1900 - 12 days (-1 delta)
-2100 +   14 days (+1 delta)
+- 5.10.1582 - 28.02.1700 - 10 days (-3 delta from the Tipikon)
+- 29.02.1700 - 28.02.1800 - 11 days (-2 delta)
+- 29.02.1800 - 28.02.1900 - 12 days (-1 delta)
+- 2100 +   14 days (+1 delta)
 more here http://5ko.free.fr/bg/jul.php
+
+The calculations should be valid for years between 1582 and 9999.
+
+*calcEaster* - finds the date of Easter Sunday in the look-up table using modulo dvision in 28 and 19 an calls calculateMonthAndLineNumber
+*calculateMonthAndLineNumber* - finds the month in which Easter Sunday falls and the line number in the look-up table using modulo division in 19.
+
+**fastingStatus.py**
+
+*fastingValue2Msg* - transforms the integer input (0..6) to a message for CLI output
+
+
 
 
 ## License ##
