@@ -5,12 +5,20 @@
 ## as published in the 1980 Tipikon ##
 
 ### Purpose ###
-Easy caluclation of the allowed/forbidden food for a particular date/week/month/period
-
+- Easy caluclation of the fasting diet for a particular date/week/month/period, i.e. 'What can I/can't I eat today'
+- An excercise in Python
 
 ### Disclaimer ###
 While Christian Orthodox fasting is a process of spiritual abstaining from sin rather than an ordeal for the phisical self, this module focuses only on its culinary side. The restrictions vary from trivial (i.e. red meat and poultry are not allowed, however fish can still be consumed) to very strict (i.e. no food or water on Good Friday) and could potentially be harmful for the body. By all means, if anybody considers fasting of any kind they shoud seek medical AND spiritual advice first.
 Please treat this code as an excercise in programming, not as any kind of diet instructions.
+
+### Installation ###
+
+Create a local directory and issue the following command to get an up-to-date copy of all files.
+
+```
+git clone https://github.com/ddppddpp/bgchof
+```
 
 ### Usage ###
 Currenly, only CLI usage is supported, by invoking the python file bgchof.py with either no arguments (default to current date) or specific date in yyyy-mm-dd format.
@@ -111,6 +119,8 @@ The correction factor for Gregorian vs Julian calendars should be applied as fol
 more here http://5ko.free.fr/bg/jul.php
 
 
+## License ##
+[License information](LICENSE)
 
 ## References ##
 
