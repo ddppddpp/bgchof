@@ -38,7 +38,11 @@ Then a request can be sent i.e.
 ```
 http://127.0.0.1:5000/api/v1/msgForDate?date=2021-12-11
 ```
-
+**Docker container**
+Use the following command to build a docker container and run it on your local system:
+```
+docker run --publish 5000:5000 python-docker
+```
 
 ### Background ###
 The Christian Orthodox Fasting Code is a complex system of rules, ranging in extremes from no food or water allowed (on Good Firday) to no restrictions (i.e. weeks after long fasting periods).

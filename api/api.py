@@ -41,4 +41,7 @@ def api_msgForDate():
 
 # a route to return the value for a specific date
 
-app.run()
+#specify host ip and port
+#explore production WSGI server
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',port='5000')
