@@ -8,7 +8,7 @@ app.config["DEBUG"] = True
 
 @app.route("/", methods=["GET"])
 def home():
-    return "<h1>Bulgarian Christian Orthodox Fasting</h1><p>This site is a prototype API for bgchof project.</p>"
+    return "<h1>Bulgarian Christian Orthodox Fasting</h1><p>This site is a prototype API for bgchof project.</p> <p>Try calling the API <a href='/api/v1/msgForDate'>here</a>.</p"
 
 
 # a route to return the message for a specific date
