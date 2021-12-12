@@ -1,8 +1,6 @@
 # (B)ul(g)arian (Ch)ristian (O)rthodox (F)asting #
 
-## A module for calculating the allowed food diet according to the fasting rules ##
-## of the Bulgarian Christian Orthodox Church ##
-## as published in the 1980 Tipikon ##
+## A module for calculating the allowed food diet according to the fasting rules of the Bulgarian Christian Orthodox Church as published in the 1980 Tipikon ##
 
 ### Purpose ###
 - Easy caluclation of the fasting diet for a particular date/week/month/period, i.e. 'What can I/can't I eat today'
@@ -21,7 +19,8 @@ git clone https://github.com/ddppddpp/bgchof
 ```
 
 ### Usage ###
-Currenly, only CLI usage is supported, by invoking the python file bgchof.py with either no arguments (default to current date) or specific date in yyyy-mm-dd format.
+
+**CLI usage** is supported, by invoking the python file bgchof.py with either no arguments (default to current date) or specific date in yyyy-mm-dd format.
 
 Example:
 ```
@@ -30,6 +29,14 @@ According to the Bulgarian Christian Orthodox norms, on this day you can consume
 bgchof % python bgchof.py 1953-05-07
 According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.
 
+```
+A **Flask based API** can be launched by invokig api.py from the CLI
+```
+% python api/api.py
+```
+Then a request can be sent i.e.
+```
+http://127.0.0.1:5000/api/v1/msgForDate?date=2021-12-11
 ```
 
 
@@ -128,6 +135,9 @@ The calculations should be valid for years between 1582 and 9999.
 *fastingValue2Msg* - transforms the integer input (0..6) to a message for CLI output
 
 
+## To Do ##
+1. Dockerise the package so that it can easily be deployed on a public host
+2. Identify a mobile framework that can send requests to the API/s and display the results 
 
 
 ## License ##

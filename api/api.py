@@ -12,15 +12,31 @@ def home():
 
 
 # a route to return the message for a specific date
-@app.route("/api/v1/getMsgForDate", methods=["GET"])
+@app.route("/api/v1/msgForDate", methods=["GET"])
 def api_msgForDate():
-    if "theDate" in flask.request.args:
-        theDate = date.fromisoformat(flask.request.args["theDate"])
-        return bgchof.getFastingStatusForDate(theDate)
+    if "date" in flask.request.args:
+        # test if supplied arg is a date
+        try:
+            theDate = date.fromisoformat(flask.request.args["date"])
+            return (
+                "<h1>Fasting Diet For "
+                + date.isoformat(theDate)
+                + "</h1><p>"
+                + str(bgchof.getFastingStatusForDate(theDate))
+                + "</p>"
+            )
+        except ValueError:
+            return "<h1>Value Error:</h1><p>Please supply a date argument in yyyy-mm-dd format!</p>"
     # elif: #define other input cases
     else:
-        inputDate = date.today()
-        return bgchof.getFastingStatusForDate(inputDate)
+        theDate = date.today()
+        return (
+            "<h1>Fasting Diet For "
+            + date.isoformat(theDate)
+            + "</h1><p>"
+            + str(bgchof.getFastingStatusForDate(theDate))
+            + "</p>"
+        )
 
 
 # a route to return the value for a specific date
