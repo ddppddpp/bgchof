@@ -1,0 +1,173 @@
+Metadata-Version: 2.1
+Name: bgchof
+Version: 0.5.0
+Summary: (B)ul(g)arian (Ch)ristian (O)rthodox (F)asting
+Home-page: UNKNOWN
+License: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.7, <4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# (B)ul(g)arian (Ch)ristian (O)rthodox (F)asting #
+
+## A module for calculating the allowed food diet according to the fasting rules of the Bulgarian Christian Orthodox Church as published in the 1980 Tipikon ##
+
+### Purpose ###
+- Easy caluclation of the fasting diet for a particular date/week/month/period, i.e. 'What can I/can't I eat today'
+- An excercise in Python
+
+### Disclaimer ###
+While Christian Orthodox fasting is a process of spiritual abstaining from sin rather than an ordeal for the phisical self, this module focuses only on its culinary side. The restrictions vary from trivial (i.e. red meat and poultry are not allowed, however fish can still be consumed) to very strict (i.e. no food or water on Good Friday) and could potentially be harmful for the body. By all means, if anybody considers fasting of any kind they shoud seek medical AND spiritual advice first.
+Please treat this code as an excercise in programming, not as any kind of diet instructions.
+
+### Installation ###
+
+Create a local directory and issue the following command to get an up-to-date copy of all files.
+
+```
+git clone https://github.com/ddppddpp/bgchof
+```
+
+### Usage ###
+
+**CLI usage** is supported, by invoking the python file bgchof.py with either no arguments (default to current date) or specific date in yyyy-mm-dd format.
+
+Example:
+```
+% python bgchof.py               
+According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine and fish.
+bgchof % python bgchof.py 1953-05-07
+According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.
+
+```
+A **Flask based API** can be launched by invokig api.py from the CLI
+```
+% python api/api.py
+```
+Then a request can be sent i.e.
+```
+http://127.0.0.1:5000/api/v1/msgForDate?date=2021-12-11
+```
+**Docker container**
+Use the following command to build a docker container and run it on your local system:
+```
+docker run --publish 5000:5000 python-docker
+```
+
+### Background ###
+The Christian Orthodox Fasting Code is a complex system of rules, ranging in extremes from no food or water allowed (on Good Firday) to no restrictions (i.e. weeks after long fasting periods).
+The rules are a combination of some that are fixed (i.e. Dormition of Mary Mother of God is celebrated each year on Aug 15 fixed) and others that are changing based on Easter Sunday (i.e. the Easter Fast).
+To make things even more complex the Bulgarian Christian Orthodox Church celebrates Easter Sunday according to the (Revised) Julian Calendar, but goes western-style for the Nativity Holiday (Dec 24) matching the Gregorian Calendar (Unlike other Orhtodox churhes such as the  Serbian, Macedonian, Russian, etc.).
+Easter Sunday is between Apil 4th and May 11th for the 20th and 21st centuries (see Correction for Century).
+For a description of the various fasting periods please see [FASTINGRULES](docs/FASTINGRULES.md)
+
+
+
+Throughout this module the following coding is used to represent food value:
+
+0. no food allowed
+1. cold plant based food
+2. cooked plant based food
+3. oil/wine
+4. fish
+5. dairy, eggs
+6. meat
+
+Invertebrate based food i.e. seafood or snails is generally considered equal to plant based and allowed on most days.
+
+Rules go in increasing manner with each value imposing less restrictions, meaning that on days with a code value of 0 no food is allowed, on days with a value of 3 cold plant based food, cooked plant based food, oil and wine are allowed, etc. and on days with a value of 6 there are no restrictions
+
+### Modules ###
+
+#### bgchof.py ####
+
+main moudle. Can be invoked from the CLI with a date and prints out a string, formatted with the types of food allowed for this given date.
+No arguments - defaults to current date
+Date in yyyy-mm-dd format - calculate diet for the input date
+Other - should generate an error
+
+#### fastingIO.py ####
+
+an i/o module with functions for reading from and writing to a .csv file in the format (int daynumber, int(0-6) status).
+readFastingList checks for existing cache file and if it exists, returns a list of dates. If the cache file doesn't exist, logs an error to stderr
+writeFastingList attempts to create a cache file and logs an error on fail
+
+#### generateCalendar.py ####
+
+This module contains the logic for calculation of fasting data for a calendar year.
+*fastingYearList* - a wrapper-function calling all the rest in order. Needs an input year number. Uses ### calculateEaster.py ### to calculate the date of Easter Sunday and Pentecost for the input year and then utilizes them in other functions.
+*generateList* - creates a list and sets all dates with a base value of 6
+*generateBaseFasting* - applies the basic fasting rules according to [FASTINGRULES](docs/FASTINGRULES.md) iterating over the calendar year.
+*resurrectionFast* - calculates and applies the specific fasting for the 7 week period preceding Easter Sunday. Input parameters are the requested date/year and list generated by generateBaseFasting. 
+*stPeterAndPaulFast* - applies the fasting rules depending on the date of Pentecost
+*dormitionFast* - calculates fasting rules for the Dormition Fast for a given year (fixed dates)
+*nativityFast* - calculates fasting rules for the fast preceding Nativity for a given year (fixed dates)
+*yearDayCurrYear* - helper function, returns the item number within the year for a the input date
+*printCalendar* - helper CLI output function
+*getVeganDays* - calculates the number of days with a purely vegan diet (no animal based food) for a given year
+*getVegetarianDays* - calculates the number of days with a vegetarian diet (no meat or fish, but i.e. dairy/eggs allowed) for a given year
+
+
+a list of procedures that calculate the fasting status for each day in a list 
+**(list) fastingYearlist(int year)** - returns a list in the format 'dayNumber', 'fastingStatus' where dayNumber is the number of the day in the calendar year (Jan 1st = 1, Dec 31st = 365/6) and fastingStatus is [0..6]
+
+**generateList(inputYear)** - returns a list with a number of elements equal to the number of days in inputYear. Each element is assigned a value of '6' (everything allowed, nor restrictions)
+
+**generateBaseFasting(inputYear, inputList)** - goes through inputList and applies the base fasting rules
+
+
+
+**calculateEaster.py**
+
+Calculate Easter according to the Bulgarian Christian Orthodox Church Typikon (1980 edition, p. 510-512)
+for use in i.e. time shifting holidays and fasting
+
+Easter Sunday should be the 1st Sunday after the first full moon after the Spring Equinox
+
+According to Bulgarian Christian Orthodox Typikon,
+the date of easter is found by dividing the year by 28 and by 19 and using lookup tables
+
+the result should be b/w APR 4 and May 11
+
+*Correction for Century*
+
+The look-up-tables in the Tipikon themselves are only valid for years 1900-2099.
+The correction factor for Gregorian vs Julian calendars should be applied as follows
+- 5.10.1582 - 28.02.1700 - 10 days (-3 delta from the Tipikon)
+- 29.02.1700 - 28.02.1800 - 11 days (-2 delta)
+- 29.02.1800 - 28.02.1900 - 12 days (-1 delta)
+- 2100 +   14 days (+1 delta)
+more here http://5ko.free.fr/bg/jul.php
+
+The calculations should be valid for years between 1582 and 9999.
+
+*calcEaster* - finds the date of Easter Sunday in the look-up table using modulo dvision in 28 and 19 an calls calculateMonthAndLineNumber
+*calculateMonthAndLineNumber* - finds the month in which Easter Sunday falls and the line number in the look-up table using modulo division in 19.
+
+**fastingStatus.py**
+
+*fastingValue2Msg* - transforms the integer input (0..6) to a message for CLI output
+
+
+## To Do ##
+1. Dockerise the package so that it can easily be deployed on a public host
+2. Identify a mobile framework that can send requests to the API/s and display the results 
+3. Create week and month views
+4. Move cache file to specific sub-directory and decide whether or not they should be part fo the code
+5. Jasonify API responses so that 2. can be addressed easily
+
+## License ##
+[License information](LICENSE)
+
+## References ##
+
+Typikon Link
+
+A Python module for calculating the dates of Easter Sunday for the Julian, Revised Julian, and Gregorian Calendars by github user mattsmi https://github.com/mattsmi/EasterCalcsPython3
+
+An article in Bulgarian describing in details the rules http://www.pravoslavieto.com/docs/post/postite_v_BPC.htm
+
+A very well documented online calendar site in English, French and Bulgarian by Petko Yotov: http://5ko.free.fr/bg/year.php
+
+
