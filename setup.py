@@ -9,7 +9,6 @@ setup(
     version='0.5.0',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    packages=[
-        'tests',
-    ],
+    packages = find:
+
 )
