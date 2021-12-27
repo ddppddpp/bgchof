@@ -1,8 +1,9 @@
 Metadata-Version: 2.1
 Name: bgchof
-Version: 0.5.0
+Version: 0.5.1
 Summary: (B)ul(g)arian (Ch)ristian (O)rthodox (F)asting
-Home-page: UNKNOWN
+Home-page: https://www.github.com/ddppddpp/bgchof
+Author: Ivailo Djilianov
 License: UNKNOWN
 Platform: UNKNOWN
 Requires-Python: >=3.7, <4
