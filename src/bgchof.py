@@ -85,6 +85,6 @@ if __name__ == "__main__":
 # debug
 
 # myDate = date.today()
-# myDate = date(2022,11,11)
+# myDate = date(2024, 11, 11)
 # status = getFastingStatusForDate(myDate)
 # print(status)
