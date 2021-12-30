@@ -3,7 +3,7 @@ import generateCalendar
 import csv
 import sys, os
 
-CFG_DATAFILE_PREFIX = "/var/tmp/.bgchofcache/"
+CFG_DATAFILE_PREFIX = "./.bgchofcache/"
 CFG_DATAFILE_MODE = "0o666"
 
 
