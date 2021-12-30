@@ -3,4 +3,3 @@ calculateEaster
 fastingIO
 fastingStatus
 generateCalendar
-tests

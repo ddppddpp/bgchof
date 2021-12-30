@@ -1,4 +1,5 @@
-"""
+"""A python module to calculate a fasting diet.
+
 Logic
 the user asks for a particular date/week/month/year
 - check if there is a file, matching the requested year
@@ -7,20 +8,28 @@ the user asks for a particular date/week/month/year
 - load the (localized) text strings matching the value(s)
 - bassed on the request, form the output
 
-- milestone 1 - cli output
-
-
-
 """
 import sys
+from datetime import date
+
+# import __init__
+
 import fastingIO
 import generateCalendar
 import fastingStatus
-from datetime import date
-import sys
+
 
 # this should be renamed to getFastingMessageForDate -- check all invocations
 def getFastingStatusForDate(inputDate: date):
+    """Calculate the fasting status and forms a text message for a particular date.
+
+    Args:
+        inputDate: a date for which to calculate the status
+
+    Returns:
+        An text string, describing the fasting do's and don'ts
+
+    """
     # check if we have the list structure pre-populated
     myFastingList = fastingIO.readFastingList(inputDate.year)
     if myFastingList is None:  # we found no file, we need to generate a list
@@ -35,8 +44,16 @@ def getFastingStatusForDate(inputDate: date):
     return fastingStatus.fastingValue2Msg(int(myFastingList[dateNumber - 1]))
 
 
-# getStatusForDate(inputDate) -> should return an int [0...6]
 def getStatusForDate(inputDate: date):
+    """Calculate the fasting status for a particular date.
+
+    Args:
+        inputDate: a date for which to calculate the status
+
+    Returns:
+        An integer (0..6) representing the fasting status
+
+    """
     # check if we have the list structure pre-populated
     myFastingList = fastingIO.readFastingList(inputDate.year)
     if myFastingList is None:  # we found no file, we need to generate a list
@@ -52,6 +69,18 @@ def getStatusForDate(inputDate: date):
 
 
 def main(argv):
+    """Evaluate the CLI arguments and calculate the fasting status.
+
+    Args:
+        one argument: a date in YYYY-MM-DD format for which to calculate the status
+        zero arguments/no input: defaults to the current date
+        more than 1 argument: returns an error message
+        anything else: raises a value error
+
+    Returns:
+        An integer (0..6) representing the fasting status
+
+    """
     # check for number of arguments - should be one (year) plus one (name of program itself)
     if (len(argv) > 2) or (len(argv) < 1):
         sys.stderr.write(

@@ -56,8 +56,9 @@ def calcEaster(inputYear):
         or inputYear < iFIRSTVALIDYEAR
         or inputYear > iLASTVALIDYEAR
     ):
-        sys.stderr.write(
-            "The argument should be a valid year for which to calculate Easter Sunday\n"
+
+        raise ValueError(
+            "The argument should be a valid year for which to calculate Easter Sunday"
         )
         return None
 

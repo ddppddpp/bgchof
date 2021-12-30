@@ -30,7 +30,7 @@ def readFastingList(inputYear):
 def writeFastingList(inputYear, inputList):
     # try to create the cache directory, write error to stdout if exists
     try:
-        os.mkdir(CFG_DATAFILE_PREFIX, CFG_DATAFILE_MODE)
+        os.makedirs(CFG_DATAFILE_PREFIX, CFG_DATAFILE_MODE)
     except:
         sys.stderr.write("Cache directory already exists.\n")
 
@@ -46,11 +46,6 @@ def writeFastingList(inputYear, inputList):
         msg = "Can't create data file for year " + str(inputYear) + "\n"
         sys.stderr.write(msg)
         exit(1)
-
-
-def readFastingList2(inputYear):
-    fastingList = []
-    fileName = str(inputYear) + ".csv"
 
 
 # debug - uncomment if needed

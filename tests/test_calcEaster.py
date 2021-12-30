@@ -1,7 +1,11 @@
+from types import MemberDescriptorType
+from typing import Match
 import unittest
 import datetime
 import sys
-import calculateEaster
+import pytest
+
+from src import calculateEaster
 
 
 class easterUnittest(unittest.TestCase):
@@ -47,7 +51,11 @@ class easterUnittest(unittest.TestCase):
 
     def testEasterEmptyString(self):
         # test for empty string
-        self.assertFalse(calculateEaster.calcEaster(""))
+        with pytest.raises(
+            ValueError,
+            match="The argument should be a valid year for which to calculate Easter Sunday",
+        ):
+            calculateEaster.calcEaster("")
 
     # important tests for leap years are 1600, 2000 (leap) and 1700, 1800, 1900, 2100
     # edge cases - Apr24 - 30, May 1-7 - those dates are on the border b/w Apr and May in the Tipikon LuTs,
@@ -113,9 +121,13 @@ class easterUnittest(unittest.TestCase):
 
     # test sql injection - only needed if we run a db
 
-    # test not an integer
-    def testEasterNonInt(self):
-        self.assertIsNone(calculateEaster.calcEaster("a thousand words"))
+    # test non-int
+    def testEaster_NotInteger_ValueError(self):
+        with pytest.raises(
+            ValueError,
+            match="The argument should be a valid year for which to calculate Easter Sunday",
+        ):
+            calculateEaster.calcEaster("tuesday")
 
 
 if __name__ == "__main__":
