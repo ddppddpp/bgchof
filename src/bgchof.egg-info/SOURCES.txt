@@ -3,7 +3,6 @@ README.md
 pyproject.toml
 setup.py
 src/bgchof.py
-src/calculateEaster.py
 src/fastingIO.py
 src/fastingStatus.py
 src/generateCalendar.py

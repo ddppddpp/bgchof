@@ -1,10 +1,12 @@
-import unittest
+import unittest, pytest
+import sys, os
 
-# import context
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import src
-from src import calculateEaster, generateCalendar
+from src import generateCalendar
+from src import fastingIO
 
-# from src import fastingIO
 # from src import bgchof
 # from src import generateCalendar
 
@@ -23,14 +25,16 @@ class generateCalendarUnittest(unittest.TestCase):
     def testGenerateListReturnsListForIntYear(self):
         self.assertIsInstance(generateCalendar.generateList(2021), list)
 
-    # check return type for a non-int
-    def testGenerateListReturnsNonetForNonInt(self):
-        self.assertIsNone(generateCalendar.generateList("someString"))
-
     def testGenerateListIfAllElementsAre6(self):
         myTestList = generateCalendar.generateList(2020)
         for i in myTestList:
             self.assertEqual(myTestList[i], 6)
+
+    def testGenerateList_NonInt_ValueError(self):
+        with pytest.raises(
+            ValueError, match="Please supply an int argument representing an year."
+        ):
+            generateCalendar.generateList("someSting")
 
 
 if __name__ == "__main__":

@@ -1,15 +1,10 @@
-"""
-Calculate Easter according to the Bulgarian Christian Orthodox Church Typikon (1980 edition, p. 510-512)
-for use in i.e. time shifting holidays and fasting
+"""Calculate the date for Easter Sunday according to the Bulgarian Christian Orthodox Church Typikon (1980 edition, p. 510-512).
 
+For use in i.e. time shifting holidays and fasting
 Easter Sunday should be the 1st Sunday after the first full moon after the Spring Equinox
-
-
 According to Bulgarian Christian Orthodox Typikon,
-the date of easter is found by dividing the year by 28 and by 19 and using lookup tables
-
-the result should be b/w APR 4 and May 11 for the 20th and 21st centuries
-
+the date of Easter Sunday is found by dividing the year by 28 and by 19 and using lookup tables
+The result should be b/w APR 4 and May 11 for the 20th and 21st centuries.
 """
 import datetime
 from datetime import date
@@ -22,7 +17,7 @@ iLASTVALIDYEAR = 9999
 # check here http://5ko.free.fr/bg/jul.php
 
 
-def calculateMonthAndLineNumber(inputYear):
+def _calculateMonthAndLineNumber(inputYear):
 
     # result
     monthAndLineNumber = []
@@ -48,8 +43,16 @@ def calculateMonthAndLineNumber(inputYear):
 
 
 def calcEaster(inputYear):
+    """Calculate Easter Sunday based on look-up tables.
 
-    # insert code to validate input date here
+    Args:
+        inputYear: an integer representing the year for which to calculate EasterSunday
+    Returns:
+        resultDate: a datetime.date object representing Easter Sunday for inputYear.
+    Raises
+        ValueError: If inputYear is not set, not an int or not between iLASTVALIDYEARand iFIRSTVALIDYEAR
+
+    """
     if (
         not inputYear
         or not isinstance(inputYear, int)
@@ -106,7 +109,7 @@ def calcEaster(inputYear):
     remainder19 = inputYear % 19
 
     # get the line number
-    monthAndNumber = calculateMonthAndLineNumber(inputYear)
+    monthAndNumber = _calculateMonthAndLineNumber(inputYear)
 
     resultMonth = monthAndNumber[0]
     # check which dict element we're in
@@ -186,6 +189,14 @@ def calcEaster(inputYear):
 
 
 def main(argv):
+    """CLI interface to calculate Easter Sunday.
+
+    Args:
+        inputDate: An integer argument in the YYYY format. Should be between iFIRSTVALIDYEAR and iLASTVALIDYEAR.
+        no arguments or more than one: Returns an error message.
+        Non-int arument: Raises a ValueError.
+
+    """
     # check for number of arguments - should be one (year) plus one (name of program itself)
     if (len(argv) > 2) or (len(argv) < 2):
         sys.stderr.write(

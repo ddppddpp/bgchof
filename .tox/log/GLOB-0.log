@@ -1,0 +1,50 @@
+action: GLOB, msg: packaging
+cwd: /Users/ivailodjilianov/Documents/development/python/bgchof
+cmd: /Users/ivailodjilianov/Documents/development/python/bgchof/.venv/bin/python3 setup.py sdist --formats=zip --dist-dir .tox/dist
+running sdist
+running egg_info
+writing src/bgchof.egg-info/PKG-INFO
+writing dependency_links to src/bgchof.egg-info/dependency_links.txt
+writing top-level names to src/bgchof.egg-info/top_level.txt
+file src/calculateEaster.py (for module calculateEaster) not found
+reading manifest file 'src/bgchof.egg-info/SOURCES.txt'
+writing manifest file 'src/bgchof.egg-info/SOURCES.txt'
+running check
+warning: check: missing meta-data: if 'author' supplied, 'author_email' should be supplied too
+
+creating bgchof-0.5.3
+creating bgchof-0.5.3/src
+creating bgchof-0.5.3/src/bgchof.egg-info
+copying files to bgchof-0.5.3...
+copying LICENSE -> bgchof-0.5.3
+copying README.md -> bgchof-0.5.3
+copying pyproject.toml -> bgchof-0.5.3
+copying setup.py -> bgchof-0.5.3
+copying src/bgchof.py -> bgchof-0.5.3/src
+copying src/fastingIO.py -> bgchof-0.5.3/src
+copying src/fastingStatus.py -> bgchof-0.5.3/src
+copying src/generateCalendar.py -> bgchof-0.5.3/src
+copying src/bgchof.egg-info/PKG-INFO -> bgchof-0.5.3/src/bgchof.egg-info
+copying src/bgchof.egg-info/SOURCES.txt -> bgchof-0.5.3/src/bgchof.egg-info
+copying src/bgchof.egg-info/dependency_links.txt -> bgchof-0.5.3/src/bgchof.egg-info
+copying src/bgchof.egg-info/top_level.txt -> bgchof-0.5.3/src/bgchof.egg-info
+Writing bgchof-0.5.3/setup.cfg
+creating '.tox/dist/bgchof-0.5.3.zip' and adding 'bgchof-0.5.3' to it
+adding 'bgchof-0.5.3'
+adding 'bgchof-0.5.3/src'
+adding 'bgchof-0.5.3/PKG-INFO'
+adding 'bgchof-0.5.3/LICENSE'
+adding 'bgchof-0.5.3/pyproject.toml'
+adding 'bgchof-0.5.3/README.md'
+adding 'bgchof-0.5.3/setup.py'
+adding 'bgchof-0.5.3/setup.cfg'
+adding 'bgchof-0.5.3/src/bgchof.egg-info'
+adding 'bgchof-0.5.3/src/bgchof.py'
+adding 'bgchof-0.5.3/src/generateCalendar.py'
+adding 'bgchof-0.5.3/src/fastingStatus.py'
+adding 'bgchof-0.5.3/src/fastingIO.py'
+adding 'bgchof-0.5.3/src/bgchof.egg-info/PKG-INFO'
+adding 'bgchof-0.5.3/src/bgchof.egg-info/SOURCES.txt'
+adding 'bgchof-0.5.3/src/bgchof.egg-info/top_level.txt'
+adding 'bgchof-0.5.3/src/bgchof.egg-info/dependency_links.txt'
+removing 'bgchof-0.5.3' (and everything under it)

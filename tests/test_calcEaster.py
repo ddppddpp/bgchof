@@ -2,10 +2,11 @@ from types import MemberDescriptorType
 from typing import Match
 import unittest
 import datetime
-import sys
+import sys, os
 import pytest
 
-from src import calculateEaster
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from src import calculateEasterSunday as calculateEaster
 
 
 class easterUnittest(unittest.TestCase):

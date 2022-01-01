@@ -9,18 +9,18 @@ the user asks for a particular date/week/month/year
 - bassed on the request, form the output
 
 """
-import sys
+import sys, os
 from datetime import date
 
-# import __init__
+# set sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-import fastingIO
-import generateCalendar
-import fastingStatus
+from src.fastingIO import readFastingList, writeFastingList
+from src.generateCalendar import fastingYearList, yearDayCurrYear
+from src.fastingStatus import fastingValue2Msg
 
 
-# this should be renamed to getFastingMessageForDate -- check all invocations
-def getFastingStatusForDate(inputDate: date):
+def getFastingMessageForDate(inputDate: date):
     """Calculate the fasting status and forms a text message for a particular date.
 
     Args:
@@ -31,17 +31,17 @@ def getFastingStatusForDate(inputDate: date):
 
     """
     # check if we have the list structure pre-populated
-    myFastingList = fastingIO.readFastingList(inputDate.year)
+    myFastingList = readFastingList(inputDate.year)
     if myFastingList is None:  # we found no file, we need to generate a list
-        myFastingList = generateCalendar.fastingYearList(inputDate.year)
+        myFastingList = fastingYearList(inputDate.year)
         # make sure we serialize the calendar, so it can be re-used in the future
-        fastingIO.writeFastingList(inputDate.year, myFastingList)
-        myFastingList = fastingIO.readFastingList(
+        writeFastingList(inputDate.year, myFastingList)
+        myFastingList = readFastingList(
             inputDate.year
         )  # think how to avoid calling this twice
     # get the date number in the year
-    dateNumber = generateCalendar.yearDayCurrYear(inputDate)
-    return fastingStatus.fastingValue2Msg(int(myFastingList[dateNumber - 1]))
+    dateNumber = yearDayCurrYear(inputDate)
+    return fastingValue2Msg(int(myFastingList[dateNumber - 1]))
 
 
 def getStatusForDate(inputDate: date):
@@ -55,16 +55,16 @@ def getStatusForDate(inputDate: date):
 
     """
     # check if we have the list structure pre-populated
-    myFastingList = fastingIO.readFastingList(inputDate.year)
+    myFastingList = readFastingList(inputDate.year)
     if myFastingList is None:  # we found no file, we need to generate a list
-        myFastingList = generateCalendar.fastingYearList(inputDate.year)
+        myFastingList = fastingYearList(inputDate.year)
         # make sure we serialize the calendar, so it can be re-used in the future
-        fastingIO.writeFastingList(inputDate.year, myFastingList)
-        myFastingList = fastingIO.readFastingList(
+        writeFastingList(inputDate.year, myFastingList)
+        myFastingList = readFastingList(
             inputDate.year
         )  # think how to avoid calling this twice
     # get the date number in the year
-    dateNumber = generateCalendar.yearDayCurrYear(inputDate)
+    dateNumber = yearDayCurrYear(inputDate)
     return int(myFastingList[dateNumber - 1])
 
 
@@ -102,7 +102,7 @@ def main(argv):
             return None
 
     # get the status
-    resultStatus = getFastingStatusForDate(dInputDate)
+    resultStatus = getFastingMessageForDate(dInputDate)
 
     return resultStatus
 

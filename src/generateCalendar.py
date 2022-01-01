@@ -1,10 +1,22 @@
-import sys
+"""A module that calculates the fasting status values for an year."""
+import sys, os
 from datetime import date, timedelta
 
-from . import calculateEaster
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from src.calculateEasterSunday import calcEaster
 
 
 def generateList(inputYear):
+    """Create a list of 365 items and set a fasting status value of 6 to all to every one.
+
+    Args:
+        inputYear: int, representing the year for which to generate the list.
+    Returns:
+        fastingList: A list of 365 6's.
+    Raises:
+        ValueError: if the argument is not an int
+    """
     fastingList = []
     if type(inputYear) is int:
         firstDay = date(inputYear, 1, 1)
@@ -13,10 +25,22 @@ def generateList(inputYear):
             fastingList.append(6)
         return fastingList
     else:
+        raise ValueError("Please supply an int argument representing an year.")
         return None
 
 
 def generateBaseFasting(inputYear, inputList):
+    """Apply the basic fasting (i.e. non-holiday weekday) rules.
+
+    General rules are - Wed and Fri - set status to 4.
+    Exceptions - Jan 5, Aug 29, Sep 14.
+
+    Args:
+        inputYear: int, representing the year for which to generate the list.
+        inputList: a list of ints who's value will be modified to match the base fasting.
+    Returns:
+        fastingList: A list with applied base fasting rules.
+    """
     # starting Jan 1st set the statuses for the base, 1-day fasting rules:
     firstDay = date(inputYear, 1, 1)
     lastDay = date(inputYear, 12, 31)
@@ -52,15 +76,24 @@ def generateBaseFasting(inputYear, inputList):
 
 
 def resurrectionFast(inputDate, inputList):
-    # the resurreciton starts 7 weeks before Easter Sunday
-    # one week before that there's a fast-free (6) week of preparation (1st 7 days)
-    # 0th week of the fast - all days - dairy/eggs (5)
-    # 1st week - mon - sat 2, sun 3
-    # 2nd week - check for Annunciation - March 25
-    # 3nd through 5th week - mon-fri 2, sat-sun 3
-    # week 6 - mon-fri 2, sat - 3, sun 4 - Palm Sunday
-    # week 7 - mon-thu 2, fri - 6, sat 3, sun - Easter Sunday
-    # The week from Easter Sunday through Thomas Sunday is fast-free (6)
+    """Apply fasting rules for the Resurrection (a.k.a. Easter) Fast.
+
+    The resurreciton starts 7 weeks before Easter Sunday
+    One week before that there's a fast-free (6) week of preparation (1st 7 days)
+    0th week of the fast - all days - dairy/eggs (5)
+    1st week - mon - sat 2, sun 3
+    2nd week - check for Annunciation - March 25
+    3nd through 5th week - mon-fri 2, sat-sun 3
+    week 6 - mon-fri 2, sat - 3, sun 4 - Palm Sunday
+    week 7 - mon-thu 2, fri - 6, sat 3, sun - Easter Sunday
+    The week from Easter Sunday through Thomas Sunday is fast-free (6)
+
+    Args:
+        inputYear: int, representing the year for which to generate the list.
+        inputList: a list of ints who's value will be modified to match the base fasting.
+    Returns:
+        fastingList: A list with applied fasting status values for the Resurrection Fast.
+    """
     firstDay = inputDate
     # print(firstDay.strftime('%d-%m-%Y'))
     for n in range(1, 8):  # next seven days
@@ -120,13 +153,22 @@ def resurrectionFast(inputDate, inputList):
     return inputList
 
 
-def stPeterAndPaulFast(pentecostDate, inputList):
-    # St Peter's Fasts start on the Monday after the 1st Sunday after Pentecost
-    # it ends on June 29th (fixed) - st Peter & Paul
-    # find the 1st sunday after pentecostDate
+def stPeterAndPaulFast(pentecostDate: date, inputList: list):
+    """Apply the fasting rules for St Peter and Paul's Fast.
 
-    # TODO - check if there are 14 days b/w start and 29th.
-    # if yes - we need one 'fast free' week (status 6) before the fast starts
+    St Peter's Fasts start on the Monday after the 1st Sunday after Pentecost
+    it ends on June 29th (fixed) - st Peter & Paul
+    find the 1st sunday after pentecostDate
+
+    TODO - check if there are 14 days b/w start and 29th.
+    if yes - we need one 'fast free' week (status 6) before the fast starts
+
+    Args:
+        pentecostDate:  datetime.date, 50 days after Easter Sunday.
+        inputList: a list of ints who's value will be modified to match the base fasting.
+    Returns:
+        fastingList: A list with applied fasting status values for the St. Peter and Paul's Fast.
+    """
     if pentecostDate.weekday() == 6:
         firstDay = pentecostDate
     else:
@@ -135,27 +177,48 @@ def stPeterAndPaulFast(pentecostDate, inputList):
             firstDay += timedelta(days=1)
     # print('first sunday after penetecost',firstDay.strftime('%d-%m-%Y'))
     firstDay += timedelta(days=1)  # we actually start *after* the 1st sunday
-    lastDay = date(
-        pentecostDate.year, 6, 28
-    )  # lastDay is June 28 - the day before St. Peter and Paul's feast - fixed
-    for n in range(int((lastDay - firstDay).days) + 1):
-        day = firstDay + timedelta(days=n)
-        if (day.weekday() == 2) or (day.weekday() == 4):
-            inputList[yearDayCurrYear(day) - 1] = 3
-        else:
-            inputList[yearDayCurrYear(day) - 1] = 4
+    # lastDay is June 28 - the day before St. Peter and Paul's feast - fixed
+    lastDay = date(pentecostDate.year, 6, 28)
+    if date(pentecostDate.year, 6, 29) - pentecostDate < timedelta(days=14):
+        # isert code for fast free week here
+        for i in range(0, 6):
+            day = firstDay + timedelta(days=i)
+            inputList[yearDayCurrYear(day)] = 6
+        # go on with the stdandard rules -- THIS NEEDS HEAVT TESTS
+        for n in range(int((lastDay - firstDay).days) + 7):
+            day = firstDay + timedelta(days=n)
+            if (day.weekday() == 2) or (day.weekday() == 4):
+                inputList[yearDayCurrYear(day) - 1] = 3
+            else:
+                inputList[yearDayCurrYear(day) - 1] = 4
+    else:
+        for n in range(int((lastDay - firstDay).days) + 1):
+            day = firstDay + timedelta(days=n)
+            if (day.weekday() == 2) or (day.weekday() == 4):
+                inputList[yearDayCurrYear(day) - 1] = 3
+            else:
+                inputList[yearDayCurrYear(day) - 1] = 4
 
     return inputList
 
 
 def dormitionFast(inputYear, inputList):
-    # The Dormition of the Mother of God is celebrated on Aug 15 as a fixed day
-    # The fasting starts on Aug 1 and ends on Aug 15. It is the 2nd most strict fast during the year
-    # Only cold food (1) is allowed on Mon, Wd, Fri
-    # On Tue, Thu - cooked food (2)
-    # Sat, Sun - oil and wine (3)
-    # The Transfiguration of Our Lord is celebrated on Aug 6, so fish is allowed on this day (4)
-    # If Aug 15 is on a Wed/Fri fish is allowed (4) <--- need to verify what to do on Sat/Sun Aug 15
+    """Apply the fasting rules for the Dorminion Fast.
+
+    The Dormition of the Mother of God is celebrated on Aug 15 as a fixed day
+    The fasting starts on Aug 1 and ends on Aug 15. It is the 2nd most strict fast during the year
+    Only cold food (1) is allowed on Mon, Wd, Fri
+    On Tue, Thu - cooked food (2)
+    Sat, Sun - oil and wine (3)
+    The Transfiguration of Our Lord is celebrated on Aug 6, so fish is allowed on this day (4)
+    If Aug 15 is on a Wed/Fri fish is allowed (4) <--- need to verify what to do on Sat/Sun Aug 15
+
+    Args:
+        inputYear:  int, the year for which to calculate the rules.
+        inputList: a list of ints who's value will be modified to match the base fasting.
+    Returns:
+        inputList: A list with applied fasting status values for the St. Peter and Paul's Fast.
+    """
     firstDay = date(inputYear, 8, 1)
     lastDay = date(inputYear, 8, 15)
     for n in range(int((lastDay - firstDay).days) + 1):
@@ -177,12 +240,21 @@ def dormitionFast(inputYear, inputList):
 
 
 def nativityFast(inputYear, inputList):
-    # The Nativity Fast is on fixed dates each year
-    # It starts on Nov15 (a day after St Philip)
-    # Nov15 - Nov22 - Oil& Wine (3)
-    # Nov23 - Dec19 - Fish (4) if not Wed or Fri
-    # Dec20 - Dec24 - Oil & Wine (3)
-    # Dec25 - Jan4 - No fasting (meat - 6)
+    """Apply the fasting rules for the Nativity Fast.
+
+    The Nativity Fast is on fixed dates each year
+    It starts on Nov15 (a day after St Philip)
+    Nov15 - Nov22 - Oil& Wine (3)
+    Nov23 - Dec19 - Fish (4) if not Wed or Fri
+    Dec20 - Dec24 - Oil & Wine (3)
+    Dec25 - Jan4 - No fasting (meat - 6)
+
+    Args:
+        inputYear:  int, the year for which to calculate the rules.
+        inputList: a list of ints who's value will be modified to match the base fasting.
+    Returns:
+        inputList: A list with applied fasting status values for the St. Peter and Paul's Fast.
+    """
     firstDay = date(inputYear, 11, 15)
     lastDay = date(inputYear, 11, 22)
     for n in range(int((lastDay - firstDay).days) + 1):
@@ -220,11 +292,18 @@ def nativityFast(inputYear, inputList):
 
 
 def yearDayCurrYear(inputDate):
-    # for a given date calculate the day number within the year
-    return inputDate.toordinal() - date(inputDate.year, 1, 1).toordinal() + 1
+    """For a given date calculate the day number within the year.
+
+    Args:
+        inputDate: datetime.date for which to get the day number.
+
+    Returns:
+        day number - int (0..365/6)
+    """
+    return int(inputDate.toordinal() - date(inputDate.year, 1, 1).toordinal() + 1)
 
 
-def printCalendar(inputYear, inputList):
+def _printCalendar(inputYear, inputList):
     # debugging purposes - print a list of dates and fasting status
     # example with similar iteration https://blog.finxter.com/iterating-through-a-range-of-dates-using-python-with-datetime/
 
@@ -237,9 +316,16 @@ def printCalendar(inputYear, inputList):
 
 
 def fastingYearList(inputYear):
+    """Create a list and apply all rules in turn on it.
+
+    Args:
+        inputYear: integer - the year for which to do the calculations.
+    Returns:
+        fastingList: a list of integer 365 values (0..6)
+    """
     fastingList = generateList(inputYear)
     generateBaseFasting(inputYear, fastingList)
-    easterDate = calculateEaster.calcEaster(inputYear)
+    easterDate = calcEaster(inputYear)
     easterFastStartDate = easterDate - timedelta(days=63)
     resurrectionFast(easterFastStartDate, fastingList)
     pentecostDate = easterDate + timedelta(days=49)  # the 50th date after Easter Sunday
@@ -251,7 +337,13 @@ def fastingYearList(inputYear):
 
 
 def getVeganDays(inputList):
+    """Count the Vegan (no meat or animal based products allowed) days for a period.
 
+    Args:
+        inputList: a list of integers(0..6)
+    Returns:
+        veganDays: int - the number of items from the inputList with values less than 4.
+    """
     veganDays = 0
     for n in range(len(inputList)):
         if int(inputList[n]) < 4:
@@ -260,6 +352,13 @@ def getVeganDays(inputList):
 
 
 def getVegetarianDays(inputList):
+    """Count the Vegetarian (no meat, but poultry allowed) days for a period.
+
+    Args:
+        inputList: a list of integers(0..6)
+    Returns:
+        veganDays: int - the number of items from the inputList with values of 4 or 5.
+    """
     vegetarianDays = 0
     for n in range(len(inputList)):
         if int(inputList[n]) > 3 and int(inputList[n]) < 6:
@@ -267,32 +366,17 @@ def getVegetarianDays(inputList):
     return vegetarianDays
 
 
-"""
-#debug
-myTestYear = 2021
-easterDate = calculateEaster.calcEaster(myTestYear)
-
-#it is import to call the procedures in turn so they initialize the dates in the right way
-myList = generateList(myTestYear)
-generateBaseFasting(myTestYear,myList)
-easterDate = calculateEaster.calcEaster(myTestYear)
-#fasting starts 7 weeks before Easter Sunday, preceeded by a fast-free weeks and a dairy/eggs week
-easterFastStartDate = easterDate - timedelta(days=63)
-resurrectionFast(easterFastStartDate, myList)
-pentecostDate = easterDate + timedelta(days=49) #the 50th date after Easter Sunday
-print('Pentecost', pentecostDate.strftime('%d-%m-%Y'))
-stPeterAndPaulFast(pentecostDate, myList)
-dormitionFast(myTestYear,myList)
-nativityFast(myTestYear,myList)
-printCalendar(myTestYear, myList)
-print(easterFastStartDate.strftime('%d-%m-%Y'))
-print(easterDate.strftime('%d-%m-%Y'))
-
-"""
-
-
 def main(argv):
-    # check for number of arguments - should be one (year) plus one (name of program itself)
+    """Check the number of arguments and create a list with fasting status values.
+
+    Args:
+        yearNumber: int - the year for which to do calculations
+    Returns:
+        myList: a list of 365 integer values (0..6)
+    Raises:
+        valueError: if argument is not an int
+
+    """
     if (len(argv) > 2) or (len(argv) < 2):
         sys.stderr.write(
             "USAGE: %s <year for which to generate a fasting caledndar in format YYYY> \n"
@@ -310,7 +394,6 @@ def main(argv):
         )
     # do some validation if needed
     # generate the lsit
-    # it is import to call the procedures in turn so they initialize the dates in the right way
     myList = fastingYearList(iInputYear)
     return myList
 

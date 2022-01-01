@@ -11,7 +11,7 @@ here = pathlib.Path(__file__).parent.resolve()
 setup(
     name="bgchof",
     description="(B)ul(g)arian (Ch)ristian (O)rthodox (F)asting",
-    version="0.5.3",
+    version="0.5.4",
     author="Ivailo Djilianov",
     url="https://www.github.com/ddppddpp/bgchof",
     long_description=(here / "README.md").read_text(encoding="utf-8"),
@@ -25,5 +25,5 @@ setup(
         "fastingStatus",
         "generateCalendar",
     ],
-    python_requires=">=3.7, <4",
+    python_requires=">=3.9, <4",
 )

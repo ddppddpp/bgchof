@@ -1,13 +1,27 @@
-# serialize and deserialize a list of fasting values
-import generateCalendar
+"""Serialize and deserialize a list of fasting values.
+
+Uses .csv files in CFG_DATAFILE_PREFIX to read from and write into.
+"""
+
+# import generateCalendar
 import csv
 import sys, os
 
-CFG_DATAFILE_PREFIX = "./.bgchofcache/"
-CFG_DATAFILE_MODE = "0o666"
+CFG_DATAFILE_PREFIX = "/var/tmp/.bgchofcache/"
+CFG_DATAFILE_MODE = 0o666
 
 
 def readFastingList(inputYear):
+    """Load contents of .csv cache file into a list.
+
+    Args:
+        inputYear: int representing the year for which to load the cache file.
+
+    Returns:
+        fastingList: a list of [int(0..365) dayNumber, int(0..6) statusValue].
+    Raises:
+        FileNotFoundError: if cache file doesn't exists. Moves on to create a new one.
+    """
     fastingList = []
     fileName = CFG_DATAFILE_PREFIX + str(inputYear) + ".csv"
     try:
@@ -21,19 +35,32 @@ def readFastingList(inputYear):
         msg = (
             "Can't find the data file for year "
             + str(inputYear)
-            + ".Creating new one...\n"
+            + ". Creating new one...\n"
         )
         sys.stderr.write(msg)
         return None
 
 
 def writeFastingList(inputYear, inputList):
-    # try to create the cache directory, write error to stdout if exists
-    try:
-        os.makedirs(CFG_DATAFILE_PREFIX, CFG_DATAFILE_MODE)
-    except:
-        sys.stderr.write("Cache directory already exists.\n")
+    """Dump an year-worth of fasting statuses into a .csv cache file.
 
+    Args:
+        inputYear: an int representing the year for which the status values.
+        inputList: a list of [int(0..365) dayNumber, int(0..6) statusValue]
+    Returns:
+        True: if serialization was successful.
+    Raises:
+        Returns error messages if cache directory exists or can't be created, if cache file can't be created.
+    """
+    # try to create the cache directory, write error to stdout if exists
+    if not os.path.isdir(CFG_DATAFILE_PREFIX):
+        try:
+            os.makedirs(CFG_DATAFILE_PREFIX, CFG_DATAFILE_MODE, exist_ok=True)
+        except:
+            sys.stderr.write("Can't create the cache directory.\n")
+            exit(1)
+    else:
+        sys.stderr.write("Cache directory already exists.\n")
     fileName = CFG_DATAFILE_PREFIX + str(inputYear) + ".csv"
     try:
         with open(fileName, mode="w") as fastingListFile:
@@ -48,8 +75,4 @@ def writeFastingList(inputYear, inputList):
         exit(1)
 
 
-# debug - uncomment if needed
-# myYear = 2021
-# myList = generateCalendar.fastingYearList(myYear)
-# writeFastingList(myYear,myList)
-# myList = readFastingList(myYear)
+# To do - add CLI arguments to manage cache, i.e. delete all .csv files
