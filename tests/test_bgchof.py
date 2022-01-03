@@ -12,9 +12,12 @@ more complex tests
 """
 import pytest
 from datetime import date
+import sys, os
+from . import context
 
-# from . import context
-from src.bgchof import getStatusForDate
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
+
+from bgchof import getStatusForDate
 
 
 def test_bgchof_Easter_2021_May2_is_6():

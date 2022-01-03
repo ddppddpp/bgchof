@@ -11,7 +11,7 @@ here = pathlib.Path(__file__).parent.resolve()
 setup(
     name="bgchof",
     description="(B)ul(g)arian (Ch)ristian (O)rthodox (F)asting",
-    version="0.5.5",
+    version="0.5.6",
     author="Ivailo Djilianov",
     url="https://www.github.com/ddppddpp/bgchof",
     long_description=(here / "README.md").read_text(encoding="utf-8"),

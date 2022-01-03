@@ -15,9 +15,9 @@ from datetime import date
 # set sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from src.fastingIO import readFastingList, writeFastingList
-from src.generateCalendar import fastingYearList, yearDayCurrYear
-from src.fastingStatus import fastingValue2Msg
+from fastingIO import readFastingList, writeFastingList
+from generateCalendar import fastingYearList, yearDayCurrYear
+from fastingStatus import fastingValue2Msg
 
 
 def getFastingMessageForDate(inputDate: date):
