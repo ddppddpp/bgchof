@@ -4,7 +4,7 @@ from datetime import date, timedelta
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from src.calculateEasterSunday import calcEaster
+from calculateEasterSunday import calcEaster
 
 
 def generateList(inputYear):
