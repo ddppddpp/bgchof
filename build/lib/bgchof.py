@@ -16,8 +16,10 @@ from datetime import date
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastingIO import readFastingList, writeFastingList
-from generateCalendar import fastingYearList, yearDayCurrYear
 from fastingStatus import fastingValue2Msg
+
+# from calculateEasterSunday import calcEaster
+from generateCalendar import fastingYearList, yearDayCurrYear
 
 
 def getFastingMessageForDate(inputDate: date):
