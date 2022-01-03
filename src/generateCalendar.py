@@ -2,9 +2,11 @@
 import sys, os
 from datetime import date, timedelta
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
-from calculateEasterSunday import calcEaster
+# from calculateEasterSunday import calcEaster
+from src import calculateEasterSunday
 
 
 def generateList(inputYear):
@@ -325,7 +327,7 @@ def fastingYearList(inputYear):
     """
     fastingList = generateList(inputYear)
     generateBaseFasting(inputYear, fastingList)
-    easterDate = calcEaster(inputYear)
+    easterDate = calculateEasterSunday.calcEaster(inputYear)
     easterFastStartDate = easterDate - timedelta(days=63)
     resurrectionFast(easterFastStartDate, fastingList)
     pentecostDate = easterDate + timedelta(days=49)  # the 50th date after Easter Sunday
