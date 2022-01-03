@@ -13,7 +13,7 @@ import sys, os
 from datetime import date
 
 # set sys.path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastingIO import readFastingList, writeFastingList
 from fastingStatus import fastingValue2Msg

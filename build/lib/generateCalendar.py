@@ -3,10 +3,10 @@ import sys, os
 from datetime import date, timedelta
 
 # sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 # from calculateEasterSunday import calcEaster
-from src import calculateEasterSunday
+import calculateEasterSunday
 
 
 def generateList(inputYear):
