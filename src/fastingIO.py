@@ -8,7 +8,7 @@ import csv
 import sys, os
 
 CFG_DATAFILE_PREFIX = "/var/tmp/.bgchofcache/"
-CFG_DATAFILE_MODE = 0o666
+CFG_DATAFILE_MODE = 0o755
 
 
 def readFastingList(inputYear):
