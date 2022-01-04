@@ -21,6 +21,8 @@ from fastingStatus import fastingValue2Msg
 # from calculateEasterSunday import calcEaster
 from generateCalendar import fastingYearList, yearDayCurrYear
 
+# from src.calculateEasterSunday import calcEaster
+
 
 def getFastingMessageForDate(inputDate: date):
     """Calculate the fasting status and forms a text message for a particular date.
