@@ -8,7 +8,7 @@ import csv
 import sys, os
 
 CFG_DATAFILE_PREFIX = "/var/tmp/.bgchofcache/"
-CFG_DATAFILE_MODE = 0o666
+CFG_DATAFILE_MODE = 0o777
 
 
 def readFastingList(inputYear):
@@ -55,6 +55,7 @@ def writeFastingList(inputYear, inputList):
     # try to create the cache directory, write error to stdout if exists
     if not os.path.isdir(CFG_DATAFILE_PREFIX):
         try:
+            os.umask(0o022)
             os.makedirs(CFG_DATAFILE_PREFIX, CFG_DATAFILE_MODE, exist_ok=True)
         except:
             sys.stderr.write("Can't create the cache directory.\n")
