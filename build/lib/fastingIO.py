@@ -7,7 +7,7 @@ Uses .csv files in CFG_DATAFILE_PREFIX to read from and write into.
 import csv
 import sys, os
 
-CFG_DATAFILE_PREFIX = "/var/tmp/.bgchofcache/"
+CFG_DATAFILE_PREFIX = "./.bgchofcache/"
 CFG_DATAFILE_MODE = 0o777
 
 
