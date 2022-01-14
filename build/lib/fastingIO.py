@@ -5,9 +5,13 @@ Uses .csv files in CFG_DATAFILE_PREFIX to read from and write into.
 
 # import generateCalendar
 import csv
+from posix import environ
 import sys, os
 
-CFG_DATAFILE_PREFIX = "./.bgchofcache/"
+if "BGCHOF_CFG_CFG_DATAFILE_PREFIX" not in os.environ:
+    BGCHOF_CFG_CFG_DATAFILE_PREFIX = "./.bgchofcache/"
+else:
+    BGCHOF_CFG_CFG_DATAFILE_PREFIX = os.environ["BGCHOF_CFG_CFG_DATAFILE_PREFIX"]
 CFG_DATAFILE_MODE = 0o777
 
 
@@ -23,7 +27,7 @@ def readFastingList(inputYear):
         FileNotFoundError: if cache file doesn't exists. Moves on to create a new one.
     """
     fastingList = []
-    fileName = CFG_DATAFILE_PREFIX + str(inputYear) + ".csv"
+    fileName = BGCHOF_CFG_CFG_DATAFILE_PREFIX + str(inputYear) + ".csv"
     try:
         with open(fileName, mode="r") as fastingListFile:
             fileReader = csv.reader(fastingListFile, delimiter=",")
@@ -53,16 +57,18 @@ def writeFastingList(inputYear, inputList):
         Returns error messages if cache directory exists or can't be created, if cache file can't be created.
     """
     # try to create the cache directory, write error to stdout if exists
-    if not os.path.isdir(CFG_DATAFILE_PREFIX):
+    if not os.path.isdir(BGCHOF_CFG_CFG_DATAFILE_PREFIX):
         try:
             os.umask(0o022)
-            os.makedirs(CFG_DATAFILE_PREFIX, CFG_DATAFILE_MODE, exist_ok=True)
+            os.makedirs(
+                BGCHOF_CFG_CFG_DATAFILE_PREFIX, CFG_DATAFILE_MODE, exist_ok=True
+            )
         except:
             sys.stderr.write("Can't create the cache directory.\n")
             exit(1)
     else:
         sys.stderr.write("Cache directory already exists.\n")
-    fileName = CFG_DATAFILE_PREFIX + str(inputYear) + ".csv"
+    fileName = BGCHOF_CFG_CFG_DATAFILE_PREFIX + str(inputYear) + ".csv"
     try:
         with open(fileName, mode="w") as fastingListFile:
             fileWriter = csv.writer(fastingListFile, delimiter=",")
