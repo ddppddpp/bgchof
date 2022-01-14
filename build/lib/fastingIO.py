@@ -5,7 +5,6 @@ Uses .csv files in CFG_DATAFILE_PREFIX to read from and write into.
 
 # import generateCalendar
 import csv
-from posix import environ
 import sys, os
 
 if "BGCHOF_CFG_CFG_DATAFILE_PREFIX" not in os.environ:
@@ -77,7 +76,7 @@ def writeFastingList(inputYear, inputList):
                 fileWriter.writerow([n + 1, inputList[n]])
         return True
     except:
-        msg = "Can't create data file for year " + str(inputYear) + "\n"
+        msg = "Can't create data file for year " + str(inputYear) + ".\n"
         sys.stderr.write(msg)
         exit(1)
 

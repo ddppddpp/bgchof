@@ -27,7 +27,6 @@ def readFastingList(inputYear):
     """
     fastingList = []
     fileName = BGCHOF_CFG_CFG_DATAFILE_PREFIX + str(inputYear) + ".csv"
-    print("fileName=", fileName, "\n")
     try:
         with open(fileName, mode="r") as fastingListFile:
             fileReader = csv.reader(fastingListFile, delimiter=",")
