@@ -13,7 +13,8 @@ more complex tests
 import pytest
 from datetime import date
 import sys, os
-from . import context
+
+# from . import context
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
