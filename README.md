@@ -151,10 +151,12 @@ The calculations should be valid for years between 1582 and 9999.
 
 ## References ##
 
-Typikon Link
+(ToDo)Typikon Link (still looking for a balid link)
 
 A Python module for calculating the dates of Easter Sunday for the Julian, Revised Julian, and Gregorian Calendars by github user mattsmi https://github.com/mattsmi/EasterCalcsPython3
 
 An article in Bulgarian describing in details the rules http://www.pravoslavieto.com/docs/post/postite_v_BPC.htm
 
 A very well documented online calendar site in English, French and Bulgarian by Petko Yotov: http://5ko.free.fr/bg/year.php
+
+An actively developed site in Bulgarian with PDFs of the [calendars](http://apostolite.com/category/постен-календар/).
