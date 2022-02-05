@@ -12,7 +12,8 @@ import sys
 
 # global constants
 iFIRSTVALIDYEAR = 1582
-iLASTVALIDYEAR = 9999
+# not tested beyond 22nd century
+iLASTVALIDYEAR = 2199
 # Bulgaria implements the Gregorian calendar in 1916, valid dates are beyond 1917
 # check here http://5ko.free.fr/bg/jul.php
 
