@@ -181,18 +181,22 @@ def stPeterAndPaulFast(pentecostDate: date, inputList: list):
     firstDay += timedelta(days=1)  # we actually start *after* the 1st sunday
     # lastDay is June 28 - the day before St. Peter and Paul's feast - fixed
     lastDay = date(pentecostDate.year, 6, 28)
-    if date(pentecostDate.year, 6, 29) - pentecostDate < timedelta(days=14):
+    if date(pentecostDate.year, 6, 29) - pentecostDate > timedelta(days=14):
         # isert code for fast free week here
-        for i in range(0, 6):
+        for i in range(0, 7):
             day = firstDay + timedelta(days=i)
             inputList[yearDayCurrYear(day)] = 6
+        # shift firsDay with one week
+        firstDay = firstDay + timedelta(7)
+        print("firstDay=", firstDay)
         # go on with the stdandard rules -- THIS NEEDS HEAVT TESTS
-        for n in range(int((lastDay - firstDay).days) + 7):
+        for n in range(int((lastDay - firstDay).days) + 1):
             day = firstDay + timedelta(days=n)
             if (day.weekday() == 2) or (day.weekday() == 4):
                 inputList[yearDayCurrYear(day) - 1] = 3
             else:
                 inputList[yearDayCurrYear(day) - 1] = 4
+            print(day, inputList[yearDayCurrYear(day)])
     else:
         for n in range(int((lastDay - firstDay).days) + 1):
             day = firstDay + timedelta(days=n)
@@ -331,6 +335,7 @@ def fastingYearList(inputYear):
     easterFastStartDate = easterDate - timedelta(days=63)
     resurrectionFast(easterFastStartDate, fastingList)
     pentecostDate = easterDate + timedelta(days=49)  # the 50th date after Easter Sunday
+    print("pentecost date is ", str(pentecostDate))
     stPeterAndPaulFast(pentecostDate, fastingList)
     dormitionFast(inputYear, fastingList)
     nativityFast(inputYear, fastingList)

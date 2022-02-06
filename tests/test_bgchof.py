@@ -11,7 +11,8 @@ more complex tests
 
 """
 import pytest
-from datetime import date
+import datetime
+from datetime import date, datetime, timedelta
 import sys, os
 
 # from . import context
@@ -23,6 +24,18 @@ from bgchof import getStatusForDate
 
 def test_bgchof_Easter_2021_May2_is_6():
     assert getStatusForDate(date.fromisoformat("2021-05-02")) == 6
+
+
+# check St' Peter's Fast for year 2022 - should have a fast free week
+def test_st_peter_and_pauls_fast_year_2022():
+    start_date = date.fromisoformat("2022-06-13")
+    end_date = date.fromisoformat("2022-06-19")
+    delta = timedelta(days=1)
+    status_array = []
+    while start_date <= end_date:
+        status_array.append(getStatusForDate(start_date))
+        start_date += delta
+    assert status_array == [6, 6, 6, 6, 6, 6, 6]
 
 
 # other tests
