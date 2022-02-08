@@ -97,17 +97,14 @@ def resurrectionFast(inputDate, inputList):
         fastingList: A list with applied fasting status values for the Resurrection Fast.
     """
     firstDay = inputDate
-    # print(firstDay.strftime('%d-%m-%Y'))
     for n in range(1, 8):  # next seven days
         day = firstDay + timedelta(days=n)
         inputList[yearDayCurrYear(day) - 1] = 6
     firstDay = day
-    # print(firstDay.strftime('%d-%m-%Y'))
     for n in range(1, 8):  # next seven days
         day = firstDay + timedelta(days=n)
         inputList[yearDayCurrYear(day) - 1] = 5
     firstDay = day
-    # print(firstDay.strftime('%d-%m-%Y'))
     for n in range(1, 8):  # next 7 days
         day = firstDay + timedelta(days=n)
         if day.weekday() < 6:
@@ -188,7 +185,6 @@ def stPeterAndPaulFast(pentecostDate: date, inputList: list):
             inputList[yearDayCurrYear(day)] = 6
         # shift firsDay with one week
         firstDay = firstDay + timedelta(7)
-        print("firstDay=", firstDay)
         # go on with the stdandard rules -- THIS NEEDS HEAVT TESTS
         for n in range(int((lastDay - firstDay).days) + 1):
             day = firstDay + timedelta(days=n)
@@ -196,7 +192,6 @@ def stPeterAndPaulFast(pentecostDate: date, inputList: list):
                 inputList[yearDayCurrYear(day) - 1] = 3
             else:
                 inputList[yearDayCurrYear(day) - 1] = 4
-            print(day, inputList[yearDayCurrYear(day)])
     else:
         for n in range(int((lastDay - firstDay).days) + 1):
             day = firstDay + timedelta(days=n)
@@ -335,7 +330,6 @@ def fastingYearList(inputYear):
     easterFastStartDate = easterDate - timedelta(days=63)
     resurrectionFast(easterFastStartDate, fastingList)
     pentecostDate = easterDate + timedelta(days=49)  # the 50th date after Easter Sunday
-    print("pentecost date is ", str(pentecostDate))
     stPeterAndPaulFast(pentecostDate, fastingList)
     dormitionFast(inputYear, fastingList)
     nativityFast(inputYear, fastingList)
