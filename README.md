@@ -139,12 +139,6 @@ The calculations should be valid for years between 1582 and 9999.
 *fastingValue2Msg* - transforms the integer input (0..6) to a message for CLI output
 
 
-## To Do ##
-1. Dockerise the package so that it can easily be deployed on a public host
-2. Identify a mobile framework that can send requests to the API/s and display the results 
-3. Create week and month views
-4. Move cache file to specific sub-directory and decide whether or not they should be part fo the code
-5. Jasonify API responses so that 2. can be addressed easily
 
 ## License ##
 [License information](LICENSE)
