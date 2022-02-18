@@ -77,7 +77,7 @@ def generateBaseFasting(inputYear, inputList):
     return inputList
 
 
-def resurrectionFast(inputDate, inputList):
+def resurrectionFast(inputDate: date, inputList: list):
     """Apply fasting rules for the Resurrection (a.k.a. Easter) Fast.
 
     The resurreciton starts 7 weeks before Easter Sunday
@@ -89,6 +89,10 @@ def resurrectionFast(inputDate, inputList):
     week 6 - mon-fri 2, sat - 3, sun 4 - Palm Sunday
     week 7 - mon-thu 2, fri - 6, sat 3, sun - Easter Sunday
     The week from Easter Sunday through Thomas Sunday is fast-free (6)
+
+    Update:
+    - according to Typikon, p.511-512 week, week 2 to 5 should be all status 3
+    - first week should be 2 for Mon-Fri and 3 for the weekend
 
     Args:
         inputYear: int, representing the year for which to generate the list.
@@ -107,25 +111,23 @@ def resurrectionFast(inputDate, inputList):
     firstDay = day
     for n in range(1, 8):  # next 7 days
         day = firstDay + timedelta(days=n)
-        if day.weekday() < 6:
-            inputList[yearDayCurrYear(day) - 1] = 2
-        else:
-            inputList[yearDayCurrYear(day) - 1] = 3
-    firstDay = day
-    for n in range(1, 29):  # next 28 days
-        day = firstDay + timedelta(days=n)
         if day.weekday() < 5:
             inputList[yearDayCurrYear(day) - 1] = 2
         else:
             inputList[yearDayCurrYear(day) - 1] = 3
+    firstDay = day
+
+    for n in range(1, 29):  # next 28 days
+        day = firstDay + timedelta(days=n)
+        # if day.weekday() < 5:
+        #    inputList[yearDayCurrYear(day) - 1] = 2
+        # else:
+        inputList[yearDayCurrYear(day) - 1] = 3
     firstDay = day
     for n in range(1, 8):  # next seven days
         day = firstDay + timedelta(days=n)
-        if day.weekday() < 5:
-            inputList[yearDayCurrYear(day) - 1] = 2
-        elif day.weekday() == 5:
+        if day.weekday() < 6:
             inputList[yearDayCurrYear(day) - 1] = 3
-            # print('Palm Sunday ',day.strftime('%d-%m-%Y'))
         else:
             inputList[yearDayCurrYear(day) - 1] = 4
     firstDay = day
