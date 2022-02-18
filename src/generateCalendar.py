@@ -69,7 +69,7 @@ def generateBaseFasting(inputYear, inputList):
     # Sept 14 - 3 (hot food, cold food, plant based oil)
     septFourteen = date(inputYear, 9, 14)
     septFourteenYearDay = yearDayCurrYear(septFourteen)
-    inputList[septFourteenYearDay - 1] = 3
+    inputList[septFourteenYearDay - 1] = 2
     # <goodFri> - 0 - no food, no water
     # Easter Sunday calculation is expensive, try to do it once per calendar generation and then send it all procedures
 

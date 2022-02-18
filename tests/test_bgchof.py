@@ -38,6 +38,11 @@ def test_st_peter_and_pauls_fast_year_2022():
     assert status_array == [6, 6, 6, 6, 6, 6, 6]
 
 
+# check status for Sept. 14 - Day of the wholy cross - should be '2'
+def test_status_sept_14_1976_equals_2():
+    assert getStatusForDate(date.fromisoformat("1976-09-14"))
+
+
 # other tests
 
 # test msg for locale 'en'
