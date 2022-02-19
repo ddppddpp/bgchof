@@ -216,6 +216,10 @@ def dormitionFast(inputYear, inputList):
     The Transfiguration of Our Lord is celebrated on Aug 6, so fish is allowed on this day (4)
     If Aug 15 is on a Wed/Fri fish is allowed (4) <--- need to verify what to do on Sat/Sun Aug 15
 
+    Update & Simplification: According to the Tipykon, Aug 1 - Aug 14 should be status 3
+    and for Aug 6 the status is 4.
+    Aug 15 should be a non-fasting day (needs double checking)
+
     Args:
         inputYear:  int, the year for which to calculate the rules.
         inputList: a list of ints who's value will be modified to match the base fasting.
@@ -223,21 +227,21 @@ def dormitionFast(inputYear, inputList):
         inputList: A list with applied fasting status values for the St. Peter and Paul's Fast.
     """
     firstDay = date(inputYear, 8, 1)
-    lastDay = date(inputYear, 8, 15)
+    lastDay = date(inputYear, 8, 14)
     for n in range(int((lastDay - firstDay).days) + 1):
         day = firstDay + timedelta(days=n)
         dayNumber = yearDayCurrYear(day)
-        if (day.weekday() == 0) or (day.weekday() == 2) or (day.weekday() == 4):
-            inputList[dayNumber - 1] = 1
-        elif (day.weekday() == 1) or (day.weekday() == 3):
-            inputList[dayNumber - 1] = 2
-        elif day.weekday() > 4:
-            inputList[dayNumber - 1] = 3
+        #    if (day.weekday() == 0) or (day.weekday() == 2) or (day.weekday() == 4):
+        #        inputList[dayNumber - 1] = 1
+        #    elif (day.weekday() == 1) or (day.weekday() == 3):
+        #        inputList[dayNumber - 1] = 2
+        #    elif day.weekday() > 4:
+        inputList[dayNumber - 1] = 3
     # Aug 6
     inputList[yearDayCurrYear(date(inputYear, 8, 6)) - 1] = 4
     # Aug 15
-    if date(inputYear, 8, 15).weekday() == 2 or date(inputYear, 8, 15).weekday() == 4:
-        inputList[yearDayCurrYear(date(inputYear, 8, 15)) - 1] = 4
+    # if date(inputYear, 8, 15).weekday() == 2 or date(inputYear, 8, 15).weekday() == 4:
+    inputList[yearDayCurrYear(date(inputYear, 8, 15)) - 1] = 6
     # All done - return the list
     return inputList
 
