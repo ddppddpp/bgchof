@@ -247,8 +247,8 @@ def nativityFast(inputYear, inputList):
 
     The Nativity Fast is on fixed dates each year
     It starts on Nov15 (a day after St Philip)
-    Nov15 - Nov22 - Oil& Wine (3)
-    Nov23 - Dec19 - Fish (4) if not Wed or Fri
+    Nov15 - Nov21 - Oil& Wine (3)
+    Nov22 - Dec19 - Fish (4) if not Wed or Fri
     Dec20 - Dec24 - Oil & Wine (3)
     Dec25 - Jan4 - No fasting (meat - 6)
 
@@ -259,12 +259,12 @@ def nativityFast(inputYear, inputList):
         inputList: A list with applied fasting status values for the St. Peter and Paul's Fast.
     """
     firstDay = date(inputYear, 11, 15)
-    lastDay = date(inputYear, 11, 22)
+    lastDay = date(inputYear, 11, 21)
     for n in range(int((lastDay - firstDay).days) + 1):
         day = firstDay + timedelta(days=n)
         dayNumber = yearDayCurrYear(day)
         inputList[dayNumber - 1] = 3
-    firstDay = date(inputYear, 11, 23)
+    firstDay = date(inputYear, 11, 22)
     lastDay = date(inputYear, 12, 19)
     for n in range(int((lastDay - firstDay).days) + 1):
         day = firstDay + timedelta(days=n)
@@ -294,7 +294,7 @@ def nativityFast(inputYear, inputList):
     return inputList
 
 
-def yearDayCurrYear(inputDate):
+def yearDayCurrYear(inputDate: date):
     """For a given date calculate the day number within the year.
 
     Args:
