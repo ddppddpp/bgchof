@@ -1,5 +1,6 @@
 # .github/workflows/app.yaml
 # based on tutorial at https://www.activestate.com/resources/quick-reads/how-to-manage-python-dependencies-with-virtual-environments/
+# and this one https://blog.dennisokeeffe.com/blog/2021-08-08-pytest-with-github-actions
 name: PyTest
 on: push
 
@@ -19,7 +20,6 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        #if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
           pip install -r requirements.txt
       - name: Run test suite
