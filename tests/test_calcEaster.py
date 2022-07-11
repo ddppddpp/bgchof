@@ -120,6 +120,17 @@ class easterUnittest(unittest.TestCase):
     def testEaster1905(self):
         self.assertEqual(calculateEaster.calcEaster(1905), datetime.date(1905, 4, 30))
 
+    # 2157
+    def testEaster2157(self):
+        self.assertEqual(calculateEaster.calcEaster(2157),datetime.date(2157,5,1))
+    
+    def testEaster2163(self):
+        self.assertEqual(calculateEaster.calcEaster(2163),datetime.date(2163,4,24))
+
+    # 2168
+    def testEaster2168(self):
+        self.assertEqual(calculateEaster.calcEaster(2168),datetime.date(2168,5,1))
+
     # test sql injection - only needed if we run a db
 
     # test non-int

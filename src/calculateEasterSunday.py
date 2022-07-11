@@ -7,13 +7,11 @@ the date of Easter Sunday is found by dividing the year by 28 and by 19 and usin
 The result should be b/w APR 4 and May 11 for the 20th and 21st centuries.
 """
 import datetime
-from datetime import date
+from datetime import date, timedelta
 import sys
 
 # global constants
-iFIRSTVALIDYEAR = 1582
-# not tested beyond 22nd century
-iLASTVALIDYEAR = 2199
+from settings import iFIRSTVALIDYEAR, iLASTVALIDYEAR
 # Bulgaria implements the Gregorian calendar in 1916, valid dates are beyond 1917
 # check here http://5ko.free.fr/bg/jul.php
 
@@ -27,7 +25,8 @@ def _calculateMonthAndLineNumber(inputYear):
 
     mayList19 = [13, 2, 10, 18, 7]
 
-    # edge case: if ramainder is 13 or 2 it is a member of both
+    # edge cases: if ramainder is 13 or 2  or 10 it is a member of both
+    # current implementation will asume April for all 3 edge cases
 
     remainder19 = inputYear % 19
 
@@ -150,10 +149,10 @@ def calcEaster(inputYear):
                 else:
                     resultDay = v[monthAndNumber[1]]
 
-    if monthAndNumber[0] == 5:
+    if (monthAndNumber[0] == 5):
         for k, v in mayDict28.items():
             if k == matchColumn:
-                resultDay = v[monthAndNumber[1]]
+                    resultDay = v[monthAndNumber[1]]
 
     """Correction for century
     the look-up tables in the Tipikon are proven valid for 1900-2099 where there are 13 day difference
@@ -165,17 +164,21 @@ def calcEaster(inputYear):
     2100 +   14 days (+1 delta)
     more here http://5ko.free.fr/bg/jul.php
     """
-    if resultYear < 1700:
-        resultDay -= 3
-    elif resultYear < 1800:
-        resultDay -= 2
-    elif resultYear < 1900:
-        resultDay -= 1
-    elif resultYear > 2099:
-        resultDay += 1
 
     # check if dates are b/w apr 4 and may 11
     resultDate = datetime.date(resultYear, resultMonth, resultDay)
+    if resultYear < 1700:
+        centuryTimedelta=timedelta(days=3)
+        resultDate = resultDate - centuryTimedelta
+    elif resultYear < 1800:    
+        centuryTimedelta=timedelta(days=2)
+        resultDate = resultDate - centuryTimedelta
+    elif resultYear < 1900:    
+        centuryTimedelta=timedelta(days=1)
+        resultDate = resultDate - centuryTimedelta
+    elif resultYear > 2099:    
+        centuryTimedelta=timedelta(days=1)
+        resultDate = resultDate + centuryTimedelta
     return resultDate
 
 
