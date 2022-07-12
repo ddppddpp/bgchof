@@ -39,6 +39,10 @@ a list of procedures that calculate the fasting status for each day in a list
 
 **calculateEaster.py**
 
+***Update - Known Error ***
+The algorythim for calculating the Orthodox Easter Sunday used in this module fails for 2163. Looking for a work arround.
+
+
 Calculate Easter according to the Bulgarian Christian Orthodox Church Typikon (1980 edition, p. 510-512)
 for use in i.e. time shifting holidays and fasting
 

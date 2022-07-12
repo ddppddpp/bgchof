@@ -1,3 +1,0 @@
-#Gegorian Calendar > 1583
-iFIRSTVALIDYEAR = 1923
-iLASTVALIDYEAR = 2199

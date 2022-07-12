@@ -11,7 +11,7 @@ from datetime import date, timedelta
 import sys
 
 # global constants
-from settings import iFIRSTVALIDYEAR, iLASTVALIDYEAR
+from bgchofSettings import iFIRSTVALIDYEAR, iLASTVALIDYEAR
 # Bulgaria implements the Gregorian calendar in 1916, valid dates are beyond 1917
 # check here http://5ko.free.fr/bg/jul.php
 
