@@ -1,0 +1,109 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.2, pytest-9.0.3, pluggy-1.6.0 -- /Users/ivailodjilianov/.pyenv/versions/3.14.2/bin/python3.14
+cachedir: .pytest_cache
+rootdir: /Users/ivailodjilianov/Documents/development/python/bgchof
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-7.1.0, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 61 items
+
+tests/test_bgchof.py::test_bgchof_easter_2021_may2_is_6 PASSED           [  1%]
+tests/test_bgchof.py::test_st_peter_and_pauls_fast_year_2022 PASSED      [  3%]
+tests/test_bgchof.py::test_status_sept_14_1976_equals_2 PASSED           [  4%]
+tests/test_bgchof_sourcery.py::test_get_fasting_message_for_date[input_date0-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-happy_path_2023_01_01] PASSED [  6%]
+tests/test_bgchof_sourcery.py::test_get_fasting_message_for_date[input_date1-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-happy_path_2023_04_16] PASSED [  8%]
+tests/test_bgchof_sourcery.py::test_get_fasting_message_for_date[input_date2-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-happy_path_2023_12_31] PASSED [  9%]
+tests/test_bgchof_sourcery.py::test_get_status_for_date[input_date0-6-happy_path_2023_01_01] PASSED [ 11%]
+tests/test_bgchof_sourcery.py::test_get_status_for_date[input_date1-6-happy_path_2023_04_16] PASSED [ 13%]
+tests/test_bgchof_sourcery.py::test_get_status_for_date[input_date2-6-happy_path_2023_12_31] PASSED [ 14%]
+tests/test_bgchof_sourcery.py::test_deprecated_functions[input_date0-6-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-deprecated_2023_01_01] PASSED [ 16%]
+tests/test_bgchof_sourcery.py::test_deprecated_functions[input_date1-6-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-deprecated_2023_04_16] PASSED [ 18%]
+tests/test_bgchof_sourcery.py::test_main[argv0-None-error_no_args] PASSED [ 19%]
+tests/test_bgchof_sourcery.py::test_main[argv1-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-happy_path_specific_date] PASSED [ 21%]
+tests/test_bgchof_sourcery.py::test_main[argv2-None-error_extra_arg] PASSED [ 22%]
+tests/test_bgchof_sourcery.py::test_main[argv3-None-error_invalid_date] PASSED [ 24%]
+tests/test_calc_easter.py::TestEaster::test_pe_1983 PASSED               [ 26%]
+tests/test_calc_easter.py::TestEaster::test_pe_1995 PASSED               [ 27%]
+tests/test_calc_easter.py::TestEaster::test_easter_2021 PASSED           [ 29%]
+tests/test_calc_easter.py::TestEaster::test_easter_1600 PASSED           [ 31%]
+tests/test_calc_easter.py::TestEaster::test_easter_1700 PASSED           [ 32%]
+tests/test_calc_easter.py::TestEaster::test_easter_1800 PASSED           [ 34%]
+tests/test_calc_easter.py::TestEaster::test_easter_1900 PASSED           [ 36%]
+tests/test_calc_easter.py::TestEaster::test_easter_2000 PASSED           [ 37%]
+tests/test_calc_easter.py::TestEaster::test_easter_2100 PASSED           [ 39%]
+tests/test_calc_easter.py::TestEaster::test_easter_empty_string PASSED   [ 40%]
+tests/test_calc_easter.py::TestEaster::test_easter_2016 PASSED           [ 42%]
+tests/test_calc_easter.py::TestEaster::test_easter_2027 PASSED           [ 44%]
+tests/test_calc_easter.py::TestEaster::test_easter_2054 PASSED           [ 45%]
+tests/test_calc_easter.py::TestEaster::test_easter_2059 PASSED           [ 47%]
+tests/test_calc_easter.py::TestEaster::test_easter_2013 PASSED           [ 49%]
+tests/test_calc_easter.py::TestEaster::test_easter_2040 PASSED           [ 50%]
+tests/test_calc_easter.py::TestEaster::test_easter_2051 PASSED           [ 52%]
+tests/test_calc_easter.py::TestEaster::test_easter_2062 PASSED           [ 54%]
+tests/test_calc_easter.py::TestEaster::test_easter_2057 PASSED           [ 55%]
+tests/test_calc_easter.py::TestEaster::test_easter_2019 PASSED           [ 57%]
+tests/test_calc_easter.py::TestEaster::test_easter_2087 PASSED           [ 59%]
+tests/test_calc_easter.py::TestEaster::test_easter_2065 PASSED           [ 60%]
+tests/test_calc_easter.py::TestEaster::test_easter_2060 PASSED           [ 62%]
+tests/test_calc_easter.py::TestEaster::test_easter_2022 PASSED           [ 63%]
+tests/test_calc_easter.py::TestEaster::test_easter_1905 PASSED           [ 65%]
+tests/test_calc_easter.py::TestEaster::test_easter_2157 PASSED           [ 67%]
+tests/test_calc_easter.py::TestEaster::test_easter_2168 PASSED           [ 68%]
+tests/test_calc_easter.py::TestEaster::test_easter_not_integer_value_error PASSED [ 70%]
+tests/test_docker_integration.py::TestDockerIntegration::test_container_is_running PASSED [ 72%]
+tests/test_docker_integration.py::TestDockerIntegration::test_root_endpoint_responds PASSED [ 73%]
+tests/test_docker_integration.py::TestDockerIntegration::test_api_endpoint_without_date_returns_today PASSED [ 75%]
+tests/test_docker_integration.py::TestDockerIntegration::test_api_endpoint_with_valid_date PASSED [ 77%]
+tests/test_docker_integration.py::TestDockerIntegration::test_api_endpoint_with_easter_sunday_2021 PASSED [ 78%]
+tests/test_docker_integration.py::TestDockerIntegration::test_api_endpoint_with_invalid_date_format PASSED [ 80%]
+tests/test_docker_integration.py::TestDockerIntegration::test_api_endpoint_with_multiple_dates PASSED [ 81%]
+tests/test_docker_integration.py::TestDockerIntegration::test_container_logs_show_successful_startup PASSED [ 83%]
+tests/test_docker_integration.py::TestDockerIntegration::test_response_content_type_is_html PASSED [ 85%]
+tests/test_docker_integration.py::TestDockerIntegration::test_api_performance_response_time PASSED [ 86%]
+tests/test_docker_integration.py::TestDockerIntegration::test_container_environment_pythonpath PASSED [ 88%]
+tests/test_docker_integration.py::TestDockerIntegration::test_container_has_required_files PASSED [ 90%]
+tests/test_generate_calendar.py::TestCalendar::test_generate_list_leap PASSED [ 91%]
+tests/test_generate_calendar.py::TestCalendar::test_generate_list PASSED [ 93%]
+tests/test_generate_calendar.py::TestCalendar::test_generate_list_returns_list_for_int_year PASSED [ 95%]
+tests/test_generate_calendar.py::TestCalendar::test_generate_list_if_all_elements_are_sixes PASSED [ 96%]
+tests/test_generate_calendar.py::TestCalendar::test_generate_list_non_int_value_error PASSED [ 98%]
+tests/test_pytest.py::test_passing PASSED                                [100%]
+
+=============================== warnings summary ===============================
+tests/test_bgchof.py::test_bgchof_easter_2021_may2_is_6
+tests/test_bgchof.py::test_st_peter_and_pauls_fast_year_2022
+tests/test_bgchof.py::test_status_sept_14_1976_equals_2
+tests/test_bgchof_sourcery.py::test_deprecated_functions[input_date0-6-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-deprecated_2023_01_01]
+tests/test_bgchof_sourcery.py::test_deprecated_functions[input_date1-6-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-deprecated_2023_04_16]
+  /Users/ivailodjilianov/Documents/development/python/bgchof/src/bgchof.py:78: UserWarning: getStatusForDate is being deprecated, pls use get_status_for_date().
+    warnings.warn("getStatusForDate is being deprecated, pls use get_status_for_date().")
+
+tests/test_bgchof_sourcery.py::test_deprecated_functions[input_date0-6-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-deprecated_2023_01_01]
+tests/test_bgchof_sourcery.py::test_deprecated_functions[input_date1-6-According to the Bulgarian Christian Orthodox norms, on this day you can consume raw plant based food, cooked plant based food, oil and wine, fish, milk/dairy, eggs and meat.-deprecated_2023_04_16]
+  /Users/ivailodjilianov/Documents/development/python/bgchof/src/bgchof.py:85: UserWarning: getFastingMessageForDate is being deprecated,                pls use get_fasting_message_for_date().
+    warnings.warn("getFastingMessageForDate is being deprecated,\
+
+tests/test_calc_easter.py: 28 warnings
+  /Users/ivailodjilianov/Documents/development/python/bgchof/src/calculateEasterSunday.py:216: UserWarning: calcEaster is being deprecated, pls use calc_easter().
+    warnings.warn("calcEaster is being deprecated, pls use calc_easter().")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.14.2-final-0 _______________
+
+Name                           Stmts   Miss Branch BrPart   Cover   Missing
+---------------------------------------------------------------------------
+src/__init__.py                    2      0      0      0 100.00%
+src/bgchof.py                     37      5      8      3  82.22%   41-43, 65-67, 111
+src/bgchof_settings.py             2      0      0      0 100.00%
+src/calculateEasterSunday.py      94     17     50      2  84.03%   50-53, 148->154, 231-254
+src/context.py                     3      3      0      0   0.00%   2-6
+src/fasting_io.py                 46     26      4      0  44.00%   46-53, 72-97
+src/fasting_status.py             17      1      6      2  86.96%   52, 54->63
+src/generateCalendar.py          181    158     76      0   9.73%   46-77, 103-154, 173-205, 229-246, 265-298, 319-324, 335-345, 356-360, 371-375, 389-405
+---------------------------------------------------------------------------
+TOTAL                            382    210    144      7  43.54%
+Coverage HTML written to dir htmlcov
+Coverage XML written to file coverage.xml
+======================= 61 passed, 35 warnings in 24.65s =======================

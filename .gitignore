@@ -1,0 +1,63 @@
+# Python
+*.pyc
+*.pyo
+__pycache__/
+__pycache__
+**/__pycache__/
+.pytest_cache
+.coverage
+coverage.xml
+# IDE
+.vscode/
+
+# Virtual Environment
+.venv
+venv/
+
+# Application Cache
+.bgchofcache
+
+# OS
+.DS_Store
+
+# AWS Deployment Documentation (contains account-specific info)
+DEPLOYMENT_COMPLETE.md
+DEPLOYMENT_STATUS.md
+AWS_DEPLOYMENT_PLAN.md
+LAMBDA_REBUILD_STRATEGY.md
+DEPLOYMENT_SUMMARY.md
+DEPLOYMENT_LOG.md
+WORKFLOW_GUIDE.md
+SYNC_SCRIPTS.md
+PRIVATE_BACKUP_STRATEGY.md
+
+# Internal Notes
+internal-monologue/
+.aws_isntructions.md
+
+# Environment Files
+.env
+.env.local
+.env.*.local
+
+# AWS Credentials (should never be committed)
+.aws/
+aws-credentials.json
+credentials.json
+
+# AWS CLI Response Files
+response.json
+lambda-test-payload.json
+
+# Deployment Artifacts
+deployment.log
+deployment-*.log
+scripts/__pycache__/
+scripts/*.pyc
+
+# Test Coverage
+htmlcov/
+
+
+# Security audit documents
+SECURITY_REVIEW.md

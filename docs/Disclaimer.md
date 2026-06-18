@@ -1,0 +1,3 @@
+### Disclaimer ###
+While Christian Orthodox fasting is a process of spiritual abstaining from sin rather than an ordeal for the phisical self, this module focuses only on its culinary side. The restrictions vary from trivial (i.e. red meat and poultry are not allowed, however fish can still be consumed) to very strict (i.e. no food or water on Good Friday) and could potentially be harmful for the body. By all means, if anybody considers fasting of any kind they shoud seek medical AND spiritual advice first.
+Please treat this code as an excercise in programming, not as any kind of diet instructions.

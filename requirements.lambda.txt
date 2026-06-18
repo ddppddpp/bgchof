@@ -1,0 +1,9 @@
+# Lambda requirements - Conservative update for Python 3.12
+# Keep Pydantic 1.x for compatibility with existing code
+bgchof @ git+https://github.com/ddppddpp/bgchof.git
+mangum>=0.11.0, <0.12.0
+fastapi>=0.70.1, <0.80.0
+uvicorn>=0.15.0, <0.20.0
+pydantic>=1.8.2, <2.0.0
+Jinja2>=3.0.3, <3.2.0
+MarkupSafe>=2.0.1, <2.2.0
