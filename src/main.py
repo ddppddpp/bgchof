@@ -1,10 +1,8 @@
 # api that accepts a date as a query param and returns an int (0..6) as resposne
-from pickletools import int4
 from typing import Optional, List
 from datetime import date, datetime, timedelta
 import calendar
 import sys, os
-from unittest import result
 
 from mangum import Mangum
 import uvicorn
