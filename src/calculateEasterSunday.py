@@ -240,18 +240,18 @@ def main(argv):
     s_input_year = argv[1]
     # check for valid type
     try:
-        i_nput_year = int(s_input_year)
+        i_input_year = int(s_input_year)
     except ValueError:
         sys.stderr.write(
             "The argument should be an year for which to calculate Easter Sunday\n"
         )
         return None
-    if (i_nput_year < I_FIRST_VALID_YEAR) or (i_nput_year > I_LAST_VALID_YEAR):
+    if (i_input_year < I_FIRST_VALID_YEAR) or (i_input_year > I_LAST_VALID_YEAR):
         sys.stderr.write("The requested year is not valid.\n")
         return None
 
     # find the date for Easter Sunday
-    d_easter_sunday = calc_easter(i_nput_year)
+    d_easter_sunday = calc_easter(i_input_year)
     # should we print or not?
     print(d_easter_sunday.strftime("%d-%m-%Y"))
 
