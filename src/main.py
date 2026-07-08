@@ -15,8 +15,8 @@ from pydantic import BaseModel, conint
 from starlette.middleware.cors import CORSMiddleware
 
 import bgchof
-from bgchof import getStatusForDate
-from calculateEasterSunday import calcEaster
+from bgchof import get_status_for_date
+from calculateEasterSunday import calc_easter
 
 
 class dateStatus(BaseModel):
@@ -107,7 +107,7 @@ async def read_items(
     else:
         theDate = date.today()
 
-    result = {"the_date": theDate, "status": bgchof.getStatusForDate(theDate)}
+    result = {"the_date": theDate, "status": bgchof.get_status_for_date(theDate)}
     return result
 
 
@@ -133,7 +133,7 @@ async def read_items(
     for i in range(0, 7):
         tempDate = mondayForThisWeek + timedelta(days=i)
         result.append(
-            {"the_date": tempDate, "status": bgchof.getStatusForDate(tempDate)}
+            {"the_date": tempDate, "status": bgchof.get_status_for_date(tempDate)}
         )
     return result
 
@@ -158,7 +158,7 @@ async def read_items(
     for i in range(1, calendar.monthrange(theDate.year, theDate.month)[1] + 1):
         tempDate = date(theDate.year, theDate.month, i)
         result.append(
-            {"the_date": tempDate, "status": bgchof.getStatusForDate(tempDate)}
+            {"the_date": tempDate, "status": bgchof.get_status_for_date(tempDate)}
         )
     return result
 
@@ -179,7 +179,7 @@ async def read_items(
     else:
         theYear = date.today().year
 
-    result = {"the_year": theYear, "EasterSunday": calcEaster(int(theYear))}
+    result = {"the_year": theYear, "EasterSunday": calc_easter(int(theYear))}
     return result
 
 
