@@ -1,5 +1,6 @@
 bgchof
+bgchof_settings
 calculateEasterSunday
-fastingIO
-fastingStatus
+fasting_io
+fasting_status
 generateCalendar
