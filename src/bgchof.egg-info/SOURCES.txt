@@ -3,6 +3,7 @@ README.md
 pyproject.toml
 setup.py
 src/bgchof.py
+src/bgchof_settings.py
 src/calculateEasterSunday.py
 src/fasting_io.py
 src/fasting_status.py
@@ -15,7 +16,9 @@ src/bgchof.egg-info/requires.txt
 src/bgchof.egg-info/top_level.txt
 tests/test_bgchof.py
 tests/test_bgchof_sourcery.py
+tests/test_cache_clearing.py
 tests/test_calc_easter.py
+tests/test_deploy_lambda.py
 tests/test_docker_integration.py
 tests/test_fasting_status.py
 tests/test_generate_calendar.py

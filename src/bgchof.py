@@ -23,6 +23,21 @@ from generateCalendar import date_number, fastingYearList
 
 # from src.calculateEasterSunday import calcEaster
 
+def _get_fasting_list_for_year(year: int) -> list[int]:
+    """ Common logic to calculate the fasting statuse for year
+        Intended use - to clean up code in get_fasting_message_for_date and
+        
+        Args:
+        Returns:
+    """
+     # check if we have the list structure pre-populated
+    my_fasting_list = read_fasting_list(year)
+    if my_fasting_list is None:  # we found no file, we need to generate a list
+        my_fasting_list = fastingYearList(year)
+        # make sure we serialize the calendar, so it can be re-used in the future
+        write_fasting_list(year, my_fasting_list)
+    return my_fasting_list
+
 
 def get_fasting_message_for_date(input_date: date):
     """Calculate the fasting status and forms a text message for a particular date.
@@ -34,18 +49,10 @@ def get_fasting_message_for_date(input_date: date):
         An text string, describing the fasting do's and don'ts
 
     """
-    # check if we have the list structure pre-populated
-    my_fasting_list = read_fasting_list(input_date.year)
-    if my_fasting_list is None:  # we found no file, we need to generate a list
-        my_fasting_list = fastingYearList(input_date.year)
-        # make sure we serialize the calendar, so it can be re-used in the future
-        write_fasting_list(input_date.year, my_fasting_list)
-        #my_fasting_list = read_fasting_list(
-        #    input_date.year
-        #)  # think how to avoid calling this twice
-    # get the date number in the year
-#    date_number = date_number(input_date)
-    return fasting_value_to_message(int(my_fasting_list[date_number(input_date) - 1]))
+    #use the internal function to load the list for the input_date.year
+    my_fasting_list = _get_fasting_list_for_year(input_date.year)
+    return fasting_value_to_message(int(my_fasting_list[date_number
+    (input_date) -1]))
 
 
 def get_status_for_date(input_date: date):
@@ -58,16 +65,7 @@ def get_status_for_date(input_date: date):
         An integer (0..6) representing the fasting status
 
     """
-    # check if we have the list structure pre-populated
-    my_fasting_list = read_fasting_list(input_date.year)
-    if my_fasting_list is None:  # we found no file, we need to generate a list
-        my_fasting_list = fastingYearList(input_date.year)
-        # make sure we serialize the calendar, so it can be re-used in the future
-        write_fasting_list(input_date.year, my_fasting_list)
-        #my_fasting_list = read_fasting_list(
-        #    input_date.year
-        #)  # think how to avoid calling this twice
-    # get the date number in the year
+    my_fasting_list = _get_fasting_list_for_year(input_date.year)
     return int(my_fasting_list[date_number(input_date) - 1])
 
 def getStatusForDate(input_date: date):
@@ -104,21 +102,21 @@ def main(argv):
     if len(argv) == 3 and argv[1] == "--clear-cache":
         try:
             year = int(argv[2])
-            
+
             # Check if cache file exists and get its path
             from fasting_io import BGCHOF_CFG_CFG_DATAFILE_PREFIX
             cache_file = BGCHOF_CFG_CFG_DATAFILE_PREFIX / f"{year}.csv"
-            
+
             if not cache_file.exists():
                 print(f"No cache file found for year {year}")
                 return None
-            
+
             # Ask for confirmation
             response = input(f"Are you sure you want to delete {cache_file}? (y/N): ")
             if response.lower() != 'y':
                 print("Operation cancelled")
                 return None
-            
+
             # Attempt to clear the cache
             result = clear_cache(year)
             if result:
@@ -126,7 +124,7 @@ def main(argv):
             else:
                 print(f"Failed to clear cache for year {year}")
             return None
-            
+
         except ValueError:
             sys.stderr.write("Error: Year must be a valid integer\n")
             return None
@@ -136,7 +134,7 @@ def main(argv):
         except OSError as e:
             sys.stderr.write(f"Error clearing cache: {e}\n")
             return None
-    
+
     # check for number of arguments - should be one (year) plus one (name of program itself)
     if (len(argv) > 2) or (len(argv) < 1):
         sys.stderr.write("USAGE: python /path/to/bgchof.py [date|--clear-cache YEAR]\n")
